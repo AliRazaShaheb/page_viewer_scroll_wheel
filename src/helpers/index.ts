@@ -9,18 +9,34 @@ enum SCREEN_DIRECTION {
 export const DIRECTION_VARIANT = {
   left: {
     show: { x: SCREEN_DIRECTION.SHOW },
-    showLeft: { x: SCREEN_DIRECTION.LEFT }
+    hide: { x: SCREEN_DIRECTION.LEFT }
   },
   right: {
     show: { x: SCREEN_DIRECTION.SHOW },
-    showRight: { x: SCREEN_DIRECTION.RIGHT }
+    hide: { x: SCREEN_DIRECTION.RIGHT }
   },
-  Top: {
-    show: { x: SCREEN_DIRECTION.SHOW },
-    showTop: { x: SCREEN_DIRECTION.TOP }
+  top: {
+    show: { y: SCREEN_DIRECTION.SHOW },
+    hide: { y: SCREEN_DIRECTION.TOP }
   },
-  Bottom: {
-    show: { x: SCREEN_DIRECTION.SHOW },
-    showBottom: { x: SCREEN_DIRECTION.BOTTOM }
+  bottom: {
+    show: { y: SCREEN_DIRECTION.SHOW },
+    hide: { y: SCREEN_DIRECTION.BOTTOM }
   }
 };
+
+export interface variants_type {
+  left?: direction;
+  right?: direction;
+  top?: direction;
+  bottom?: direction;
+}
+
+export interface direction {
+  show: state;
+  hide: state;
+}
+
+export interface state {
+  x: SCREEN_DIRECTION;
+}

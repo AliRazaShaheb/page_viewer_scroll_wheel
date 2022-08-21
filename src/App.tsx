@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./styles.css";
 import Page from "./components/Page";
 import PageViewer from "./components/PageViewer";
-import {} = from '../'
+import { DIRECTION_VARIANT } from "./helpers/index";
+import Counter from "./components/counter_reducer/counter";
 
 export default function App() {
   const [pg1, setPg1] = useState(false);
@@ -16,23 +17,30 @@ export default function App() {
       <PageViewer>
         <Page
           color="blue"
-          initial={}
-          variant={}
-          animate={}
+          initial={"show"}
+          animate={pg1 ? "hide" : "show"}
+          variants={DIRECTION_VARIANT.top}
           setChangePage={setPg1}
           changePage={pg1}
         >
-          Page1
+          <Counter />
         </Page>
-        <Page setChangePage={setPg2} changePage={pg2} color="red">
+        {/* <Page
+          setChangePage={setPg2}
+          changePage={pg2}
+          color="red"
+          initial={"hide"}
+          animate={pg2 ? "hide" : "show"}
+          variants={DIRECTION_VARIANT.bottom}
+        >
           Page2
-        </Page>
-        <Page setChangePage={setPg3} changePage={pg3} color="green">
+        </Page> */}
+        {/* <Page setChangePage={setPg3} changePage={pg3} color="green">
           Page3
         </Page>
         <Page setChangePage={setPg4} changePage={pg4} color="orange">
           Page4
-        </Page>
+        </Page> */}
       </PageViewer>
     </div>
   );

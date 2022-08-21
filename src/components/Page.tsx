@@ -1,44 +1,55 @@
 import { motion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { variants_type, direction } from "../helpers";
 
 interface PageProps {
-  color: string;
-  changePage: boolean;
-  setChangePage: React.Dispatch<React.SetStateAction<boolean>>;
-  children: React.ReactNode;
+  color?: string;
+  changePage?: boolean;
+  setChangePage?: React.Dispatch<React.SetStateAction<boolean>>;
+  children?: React.ReactNode;
+  initial?: string;
+  animate?: string | boolean;
+  variants?: direction;
 }
 
-const Page = ({ children, color, changePage, setChangePage }: PageProps) => {
+const Page = ({
+  children,
+  color,
+  changePage,
+  setChangePage,
+  initial,
+  animate,
+  variants
+}: PageProps) => {
   const [trigger, setTrigger] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null!);
-
-  const handleWheel = useCallback((e: any) => {
-    const delta = Math.sign(e.deltaY);
-    if (!trigger) {
-      setTrigger(true);
-      if (delta > 0 && trigger) {
-        setTrigger(true);
+  console.log(trigger);
+  const handleWheel = useCallback(
+    (e: any) => {
+      const delta = Math.sign(e.deltaY);
+      if (delta < 0) {
+        setChangePage?.(true);
       } else {
-        setTrigger(false);
+        setChangePage?.(false);
       }
-    }
-    setTrigger(false);
-  }, []);
+    },
+    [changePage]
+  );
   useEffect(() => {
     const element = ref.current;
-    setChangePage(trigger);
+    // setChangePage?.(trigger);
     element?.addEventListener("wheel", handleWheel);
     return () => {
       element?.removeEventListener("wheel", handleWheel);
     };
-  }, [trigger]);
+  }, [changePage]);
 
   return (
     <motion.div
       ref={ref}
-      initial={}
-      animate={}
-      variants={}
+      initial={initial}
+      animate={animate}
+      variants={variants}
       style={{
         backgroundColor: color,
         display: "flex",
